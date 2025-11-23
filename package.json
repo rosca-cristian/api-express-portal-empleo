@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
-    "postbuild": "npm run migration:run:prod",
+    "postbuild": "npm run migration:run:prod && npm run seed:prod",
     "start": "node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -19,7 +19,8 @@
     "migration:generate": "npm run typeorm migration:generate",
     "migration:create": "npm run typeorm migration:create",
     "migration:show": "npm run typeorm migration:show",
-    "seed": "ts-node-dev src/seeds/seed.ts"
+    "seed": "ts-node-dev src/seeds/seed.ts",
+    "seed:prod": "node dist/seeds/seed.js"
   },
   "keywords": [
     "job-marketplace",
