@@ -1,5 +1,5 @@
 import fs from 'fs';
-import pdf from 'pdf-parse';
+import * as pdfParse from 'pdf-parse';
 
 /**
  * Extract text from PDF file
@@ -9,7 +9,8 @@ import pdf from 'pdf-parse';
 export async function extractPDFText(filePath: string): Promise<string> {
   try {
     const dataBuffer = fs.readFileSync(filePath);
-    const data = await pdf(dataBuffer);
+    // @ts-ignore - pdf-parse tiene problemas con tipos en CommonJS
+    const data = await pdfParse(dataBuffer);
     return data.text;
   } catch (error) {
     console.error('Error extracting PDF text:', error);
