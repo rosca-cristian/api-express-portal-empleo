@@ -10,6 +10,8 @@ import { Interview } from '../entities/Interview';
 // Load environment variables
 config();
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST || 'localhost',
@@ -20,7 +22,7 @@ const AppDataSource = new DataSource({
   synchronize: false, // Never use true in production
   logging: process.env.NODE_ENV === 'development',
   entities: [User, Job, CV, Application, Interview],
-  migrations: ['src/migrations/**/*.ts'],
+  migrations: isProduction ? ['dist/migrations/**/*.js'] : ['src/migrations/**/*.ts'],
   subscribers: [],
 });
 
